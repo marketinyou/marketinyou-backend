@@ -9,7 +9,10 @@ app.get('/etc', async (req, res) => {
     const worksheet = data.getWorksheet(1);
     let result = [];
     worksheet.eachRow((row, rowNumber) => {
-      result.push(row.values);
+      let filteredRow = row.values.filter(value => value !== null);
+      if (filteredRow.length > 0) {
+        result.push(filteredRow);
+      }
     });
     res.json(result);
   } catch (error) {
@@ -25,7 +28,10 @@ app.get('/shopping', async (req, res) => {
     const worksheet = data.getWorksheet(1);
     let result = [];
     worksheet.eachRow((row, rowNumber) => {
-      result.push(row.values);
+      let filteredRow = row.values.filter(value => value !== null);
+      if (filteredRow.length > 0) {
+        result.push(filteredRow);
+      }
     });
     res.json(result);
   } catch (error) {
@@ -41,7 +47,10 @@ app.get('/food', async (req, res) => {
     const worksheet = data.getWorksheet(1);
     let result = [];
     worksheet.eachRow((row, rowNumber) => {
-      result.push(row.values);
+      let filteredRow = row.values.filter(value => value !== null);
+      if (filteredRow.length > 0) {
+        result.push(filteredRow);
+      }
     });
     res.json(result);
   } catch (error) {
