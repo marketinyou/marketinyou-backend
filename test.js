@@ -1,11 +1,8 @@
 const express = require('express');
-const exceljs = require('exceljs');
-
 const app = express();
 const port = 3000;
 
-
-const foodData = [
+const excelData = [
     { store: '태평양분식', type: '종합분식', address: '경남 양산시 중앙로 133' },
     { store: '부산갈매기족발', type: '족발,보쌈', address: '경남 양산시 중앙로 133 나2-14호' },
     { store: '부부수산', type: '생선회', address: '경남 양산시 중앙로 133' },
@@ -37,48 +34,10 @@ const foodData = [
     { store: '모꼬치', type: '한식', address: '경남 양산시 중앙로 133' },
     { store: '카페인 향기', type: '카페,디저트', address: '경남 양산시 중앙로 133 가 21호' },
     { store: '통큰분식', type: '종합분식', address: '경남 양산시 중앙로 133 다동 1-6호' }
-];
+  ];
 
 app.get('/food', (req, res) => {
-  res.json(foodData);
-});
-
-app.get('/etc', async (req, res) => {
-  try {
-    const workbook = new exceljs.Workbook();
-    const data = await workbook.xlsx.readFile('excel/남부시장 기타.xlsx');
-    const worksheet = data.getWorksheet(1);
-    let result = [];
-    worksheet.eachRow((row, rowNumber) => {
-      let filteredRow = row.values.filter(value => value !== null);
-      if (filteredRow.length > 0) {
-        result.push(filteredRow);
-      }
-    });
-    res.json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('서버 오류');
-  }
-});
-
-app.get('/shopping', async (req, res) => {
-  try {
-    const workbook = new exceljs.Workbook();
-    const data = await workbook.xlsx.readFile('excel/남부시장 쇼핑.xlsx');
-    const worksheet = data.getWorksheet(1);
-    let result = [];
-    worksheet.eachRow((row, rowNumber) => {
-      let filteredRow = row.values.filter(value => value !== null);
-      if (filteredRow.length > 0) {
-        result.push(filteredRow);
-      }
-    });
-    res.json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('서버 오류');
-  }
+  res.json(excelData);
 });
 
 app.listen(port, () => {
